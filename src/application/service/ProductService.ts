@@ -29,6 +29,11 @@ export class ProductService {
   }
 
   async findById(id: number): Promise<Product> {
-    return this.productRepository.findById(id);
+    const product = await this.productRepository.findById(id);
+    if (!product)
+      throw new CustomException(404, 'Not Found', {
+        message: [`Product with id ${id} does not exists`],
+      });
+    return product;
   }
 }
