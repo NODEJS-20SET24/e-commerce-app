@@ -15,34 +15,35 @@ const setupSwagger = (app: INestApplication) => {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/documentation', app, document);
 };
-// Only NestJS
-// async function bootstrap() {
-//   const app = await NestFactory.create(AppModule);
-//   app.setGlobalPrefix('api');
-//   setupSwagger(app);
-//   app.useGlobalPipes(new ValidationPipe());
-//   await app.listen(3000);
-// }
-// bootstrap();
 
-// With Serverless Framework
-let server: Handler;
-async function bootstrap(): Promise<Handler> {
+//Only NestJS
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   setupSwagger(app);
   app.useGlobalPipes(new ValidationPipe());
-  await app.init();
-
-  const expressApp = app.getHttpAdapter().getInstance();
-  return serverlessExpress({ app: expressApp });
+  await app.listen(3000);
 }
+bootstrap();
 
-export const handler: Handler = async (
-  event: any,
-  context: Context,
-  callback: Callback,
-) => {
-  server = server ?? (await bootstrap());
-  return server(event, context, callback);
-};
+// With Serverless Framework
+// let server: Handler;
+// async function bootstrap(): Promise<Handler> {
+//   const app = await NestFactory.create(AppModule);
+//   app.setGlobalPrefix('api');
+//   setupSwagger(app);
+//   app.useGlobalPipes(new ValidationPipe());
+//   await app.init();
+
+//   const expressApp = app.getHttpAdapter().getInstance();
+//   return serverlessExpress({ app: expressApp });
+// }
+
+// export const handler: Handler = async (
+//   event: any,
+//   context: Context,
+//   callback: Callback,
+// ) => {
+//   server = server ?? (await bootstrap());
+//   return server(event, context, callback);
+// };

@@ -1,26 +1,31 @@
 import { Module } from '@nestjs/common';
 import { ProductController } from './infrastructure/controller/ProductController';
 import { ProductService } from './application/service/ProductService';
-import { InMemoryProductRepository } from './infrastructure/repository/in-memory/InMemoryProductRepository';
+// import { InMemoryProductRepository } from './infrastructure/repository/in-memory/InMemoryProductRepository';
+// import { InMemorySupplierRepository } from './infrastructure/repository/in-memory/InMemorySupplierRepository';
 import { ProductRepository } from './domain/repository/ProductRepository';
 import { SupplierRepository } from './domain/repository/SupplierRepository';
-import { InMemorySupplierRepository } from './infrastructure/repository/in-memory/InMemorySupplierRepository';
+import { PostgresModule } from './infrastructure/repository/postgres/postgres.module';
+import { PostgresProductRepository } from './infrastructure/repository/postgres/PostgresProductRepository';
+import { PostgresSupplierRepository } from './infrastructure/repository/postgres/PostgresSupplierRepository';
 
 @Module({
-  imports: [],
+  imports: [PostgresModule],
   controllers: [ProductController],
   providers: [
     ProductService,
-    InMemoryProductRepository,
-    InMemorySupplierRepository,
+    // InMemoryProductRepository,
+    // InMemorySupplierRepository,
+    PostgresProductRepository,
+    PostgresSupplierRepository,
     {
       provide: ProductRepository,
-      useExisting: InMemoryProductRepository,
+      useExisting: PostgresProductRepository
     },
     {
       provide: SupplierRepository,
-      useExisting: InMemorySupplierRepository,
-    },
-  ],
+      useExisting: PostgresSupplierRepository
+    }
+  ]
 })
 export class AppModule {}
