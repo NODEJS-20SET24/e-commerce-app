@@ -7,10 +7,10 @@ import { SupplierModel } from './model/SupplierModel';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'e-commerce-db.cdogwoim81ke.us-east-2.rds.amazonaws.com',
+      host: '<HOST>',
       port: 5432,
-      username: 'postgres',
-      password: 'Admin12%',
+      username: '<USERNAME>',
+      password: '<PASSWORD>',
       database: 'ecommercedb',
       entities: [ProductModel, SupplierModel],
       synchronize: true, //solo para dev
