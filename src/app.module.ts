@@ -9,6 +9,10 @@ import { DynamoProductRepository } from './infrastructure/repository/database/dy
 import { MongoModule } from './infrastructure/repository/database/mongo-db/mongo.module';
 import { PostgresModule } from './infrastructure/repository/database/postgres/postgres.module';
 import { MongoProductRepository } from './infrastructure/repository/database/mongo-db/MongoProductRepository';
+import { CacheController } from './infrastructure/controller/CacheController';
+import { RedisCacheRepository } from './infrastructure/repository/cache/RedisCacheRepository';
+import { CacheRepository } from './domain/repository/CacheRepository';
+import { CacheService } from './application/service/CacheService';
 // import { PostgresProductRepository } from './infrastructure/repository/postgres/PostgresProductRepository';
 // import { PostgresSupplierRepository } from './infrastructure/repository/postgres/PostgresSupplierRepository';
 
@@ -17,14 +21,16 @@ import { MongoProductRepository } from './infrastructure/repository/database/mon
     // PostgresModule,
     MongoModule
   ],
-  controllers: [ProductController],
+  controllers: [ProductController, CacheController],
   providers: [
     ProductService,
+    CacheService,
     // InMemoryProductRepository,
     InMemorySupplierRepository,
     // PostgresProductRepository,
     // PostgresSupplierRepository,
     MongoProductRepository,
+    RedisCacheRepository,
     {
       provide: ProductRepository,
       useExisting: MongoProductRepository
@@ -32,6 +38,10 @@ import { MongoProductRepository } from './infrastructure/repository/database/mon
     {
       provide: SupplierRepository,
       useExisting: InMemorySupplierRepository
+    },
+    {
+      provide: CacheRepository,
+      useExisting: RedisCacheRepository
     }
   ]
 })
