@@ -2,16 +2,21 @@ import { Module } from '@nestjs/common';
 import { ProductController } from './infrastructure/controller/ProductController';
 import { ProductService } from './application/service/ProductService';
 // import { InMemoryProductRepository } from './infrastructure/repository/in-memory/InMemoryProductRepository';
-import { InMemorySupplierRepository } from './infrastructure/repository/in-memory/InMemorySupplierRepository';
 import { ProductRepository } from './domain/repository/ProductRepository';
 import { SupplierRepository } from './domain/repository/SupplierRepository';
-import { PostgresModule } from './infrastructure/repository/postgres/postgres.module';
+import { InMemorySupplierRepository } from './infrastructure/repository/database/in-memory/InMemorySupplierRepository';
+import { DynamoProductRepository } from './infrastructure/repository/database/dynamo-db/DynamoProductRepository';
+import { MongoModule } from './infrastructure/repository/database/mongo-db/mongo.module';
+import { PostgresModule } from './infrastructure/repository/database/postgres/postgres.module';
+import { MongoProductRepository } from './infrastructure/repository/database/mongo-db/MongoProductRepository';
 // import { PostgresProductRepository } from './infrastructure/repository/postgres/PostgresProductRepository';
 // import { PostgresSupplierRepository } from './infrastructure/repository/postgres/PostgresSupplierRepository';
-import { DynamoProductRepository } from './infrastructure/repository/dynamo-db/DynamoProductRepository';
 
 @Module({
-  // imports: [PostgresModule],
+  imports: [
+    // PostgresModule,
+    MongoModule
+  ],
   controllers: [ProductController],
   providers: [
     ProductService,
@@ -19,10 +24,10 @@ import { DynamoProductRepository } from './infrastructure/repository/dynamo-db/D
     InMemorySupplierRepository,
     // PostgresProductRepository,
     // PostgresSupplierRepository,
-    DynamoProductRepository,
+    MongoProductRepository,
     {
       provide: ProductRepository,
-      useExisting: DynamoProductRepository
+      useExisting: MongoProductRepository
     },
     {
       provide: SupplierRepository,
