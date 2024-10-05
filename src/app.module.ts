@@ -13,27 +13,31 @@ import { CacheController } from './infrastructure/controller/CacheController';
 import { RedisCacheRepository } from './infrastructure/repository/cache/RedisCacheRepository';
 import { CacheRepository } from './domain/repository/CacheRepository';
 import { CacheService } from './application/service/CacheService';
+import { InMemoryProductRepository } from './infrastructure/repository/database/in-memory/InMemoryProductRepository';
+import { S3MetadataRespository } from './infrastructure/repository/database/s3/S3MetadataRespository';
+import { MetadataRepository } from './domain/repository/MetadataRepository';
 // import { PostgresProductRepository } from './infrastructure/repository/postgres/PostgresProductRepository';
 // import { PostgresSupplierRepository } from './infrastructure/repository/postgres/PostgresSupplierRepository';
 
 @Module({
   imports: [
     // PostgresModule,
-    MongoModule
+    // MongoModule
   ],
   controllers: [ProductController, CacheController],
   providers: [
     ProductService,
     CacheService,
-    // InMemoryProductRepository,
+    InMemoryProductRepository,
     InMemorySupplierRepository,
     // PostgresProductRepository,
     // PostgresSupplierRepository,
-    MongoProductRepository,
+    // MongoProductRepository,
     RedisCacheRepository,
+    S3MetadataRespository,
     {
       provide: ProductRepository,
-      useExisting: MongoProductRepository
+      useExisting: InMemoryProductRepository
     },
     {
       provide: SupplierRepository,
@@ -42,6 +46,10 @@ import { CacheService } from './application/service/CacheService';
     {
       provide: CacheRepository,
       useExisting: RedisCacheRepository
+    },
+    {
+      provide: MetadataRepository,
+      useExisting: S3MetadataRespository
     }
   ]
 })

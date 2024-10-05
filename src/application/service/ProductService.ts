@@ -4,12 +4,14 @@ import { CreateProductDto } from '../dto/CreateProductDto';
 import { Product } from 'src/domain/entity/Product';
 import { Injectable } from 'src/common/Injectable';
 import { CustomException } from 'src/common/CustomException';
+import { MetadataRepository } from 'src/domain/repository/MetadataRepository';
 
 @Injectable()
 export class ProductService {
   constructor(
     private readonly productRepository: ProductRepository,
     private readonly supplierRepository: SupplierRepository,
+    private readonly metadataRepository: MetadataRepository
   ) {}
 
   async create(dto: CreateProductDto): Promise<Product> {
@@ -18,21 +20,25 @@ export class ProductService {
 
     if (!supplier)
       throw new CustomException(404, 'Not Found', {
-        message: [`Supplier with id ${dto.supplierId} does not exists`],
+        message: [`Supplier with id ${dto.supplierId} does not exists`]
       });
 
     product.name = dto.name;
     product.description = dto.description;
     product.supplier = supplier;
 
-    return this.productRepository.create(product);
+    const newProduct = await this.productRepository.create(product);
+
+    await this.metadataRepository.upload(newProduct.id, newProduct.name);
+
+    return newProduct;
   }
 
   async findById(id: number): Promise<Product> {
     const product = await this.productRepository.findById(id);
     if (!product)
       throw new CustomException(404, 'Not Found', {
-        message: [`Product with id ${id} does not exists`],
+        message: [`Product with id ${id} does not exists`]
       });
     return product;
   }

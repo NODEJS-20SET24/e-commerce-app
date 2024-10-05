@@ -1,15 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import { Injectable } from 'src/common/Injectable';
 import { Product } from 'src/domain/entity/Product';
 import { ProductRepository } from 'src/domain/repository/ProductRepository';
+import { getDocumentClient } from 'src/common/aws/Clients';
 
 @Injectable()
 export class DynamoProductRepository implements ProductRepository {
   private PRODUCT_TABLE = 'product';
   async create(product: Product): Promise<Product> {
-    const documentClient = this.getDocumentClient();
+    const documentClient = getDocumentClient();
     const model = {
       ID: uuidv4(),
       name: product.name,
@@ -26,7 +26,7 @@ export class DynamoProductRepository implements ProductRepository {
     return this.mapToEntity(model);
   }
   async findById(id: number): Promise<Product> {
-    const documentClient = this.getDocumentClient();
+    const documentClient = getDocumentClient();
     const command = new QueryCommand({
       TableName: this.PRODUCT_TABLE,
       KeyConditionExpression: 'ID = :id',
@@ -47,16 +47,5 @@ export class DynamoProductRepository implements ProductRepository {
       description: document.description,
       supplierId: document.supplierId
     };
-  }
-
-  private getDocumentClient(): DynamoDBClient {
-    const config = {
-      credentials: {
-        accessKeyId: '<YOUR_ACCESS_KEY>',
-        secretAccessKey: '<YOUR_SECRET_KEY>'
-      },
-      region: 'us-east-2'
-    };
-    return new DynamoDBClient(config);
   }
 }
