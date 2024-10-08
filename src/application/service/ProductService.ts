@@ -5,13 +5,16 @@ import { Product } from 'src/domain/entity/Product';
 import { Injectable } from 'src/common/Injectable';
 import { CustomException } from 'src/common/CustomException';
 import { MetadataRepository } from 'src/domain/repository/MetadataRepository';
+import { MailerRepository } from 'src/domain/repository/MailerRepository';
+import { Mail } from 'src/domain/entity/Mail';
 
 @Injectable()
 export class ProductService {
   constructor(
     private readonly productRepository: ProductRepository,
     private readonly supplierRepository: SupplierRepository,
-    private readonly metadataRepository: MetadataRepository
+    private readonly metadataRepository: MetadataRepository,
+    private readonly mailerRepository: MailerRepository
   ) {}
 
   async create(dto: CreateProductDto): Promise<Product> {
@@ -28,7 +31,7 @@ export class ProductService {
     product.supplier = supplier;
 
     const newProduct = await this.productRepository.create(product);
-
+    await this.mailerRepository.sendEmail(this.getEmailDetails(newProduct));
     await this.metadataRepository.upload(newProduct.id, newProduct.name);
 
     return newProduct;
@@ -41,5 +44,14 @@ export class ProductService {
         message: [`Product with id ${id} does not exists`]
       });
     return product;
+  }
+
+  private getEmailDetails(product: Product): Mail {
+    return {
+      from: 'test@test.com',
+      to: 'example@example.com',
+      subject: 'Product created',
+      body: `Código producto: ${product.id}, Nombre producto: ${product.name}`
+    };
   }
 }

@@ -16,6 +16,9 @@ import { CacheService } from './application/service/CacheService';
 import { InMemoryProductRepository } from './infrastructure/repository/database/in-memory/InMemoryProductRepository';
 import { S3MetadataRespository } from './infrastructure/repository/database/s3/S3MetadataRespository';
 import { MetadataRepository } from './domain/repository/MetadataRepository';
+import { NodeMailerRepository } from './infrastructure/repository/mail/NodemailerRepository';
+import { MailerRepository } from './domain/repository/MailerRepository';
+import { MyMailerModule } from './infrastructure/repository/mail/mailer.module';
 // import { PostgresProductRepository } from './infrastructure/repository/postgres/PostgresProductRepository';
 // import { PostgresSupplierRepository } from './infrastructure/repository/postgres/PostgresSupplierRepository';
 
@@ -23,6 +26,7 @@ import { MetadataRepository } from './domain/repository/MetadataRepository';
   imports: [
     // PostgresModule,
     // MongoModule
+    MyMailerModule
   ],
   controllers: [ProductController, CacheController],
   providers: [
@@ -35,6 +39,7 @@ import { MetadataRepository } from './domain/repository/MetadataRepository';
     // MongoProductRepository,
     RedisCacheRepository,
     S3MetadataRespository,
+    NodeMailerRepository,
     {
       provide: ProductRepository,
       useExisting: InMemoryProductRepository
@@ -50,6 +55,10 @@ import { MetadataRepository } from './domain/repository/MetadataRepository';
     {
       provide: MetadataRepository,
       useExisting: S3MetadataRespository
+    },
+    {
+      provide: MailerRepository,
+      useExisting: NodeMailerRepository
     }
   ]
 })
