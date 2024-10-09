@@ -1,7 +1,7 @@
 import Redis from 'ioredis';
-import { Injectable } from 'src/common/Injectable';
-import { Cache } from 'src/domain/entity/Cache';
-import { CacheRepository } from 'src/domain/repository/CacheRepository';
+import { Injectable } from '../../../common/Injectable';
+import { Cache } from '../../../domain/entity/Cache';
+import { CacheRepository } from '../../../domain/repository/CacheRepository';
 
 @Injectable()
 export class RedisCacheRepository implements CacheRepository {

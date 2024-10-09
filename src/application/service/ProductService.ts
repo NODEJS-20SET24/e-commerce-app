@@ -1,12 +1,12 @@
-import { ProductRepository } from 'src/domain/repository/ProductRepository';
-import { SupplierRepository } from 'src/domain/repository/SupplierRepository';
+import { ProductRepository } from '../../domain/repository/ProductRepository';
+import { SupplierRepository } from '../../domain/repository/SupplierRepository';
 import { CreateProductDto } from '../dto/CreateProductDto';
-import { Product } from 'src/domain/entity/Product';
-import { Injectable } from 'src/common/Injectable';
-import { CustomException } from 'src/common/CustomException';
-import { MetadataRepository } from 'src/domain/repository/MetadataRepository';
-import { MailerRepository } from 'src/domain/repository/MailerRepository';
-import { Mail } from 'src/domain/entity/Mail';
+import { Product } from '../../domain/entity/Product';
+import { Injectable } from '../../common/Injectable';
+import { CustomException } from '../../common/CustomException';
+import { MetadataRepository } from '../../domain/repository/MetadataRepository';
+import { MailerRepository } from '../../domain/repository/MailerRepository';
+import { Mail } from '../../domain/entity/Mail';
 
 @Injectable()
 export class ProductService {

@@ -1,7 +1,7 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from 'src/common/Injectable';
-import { Mail } from 'src/domain/entity/Mail';
-import { MailerRepository } from 'src/domain/repository/MailerRepository';
+import { Injectable } from '../../../common/Injectable';
+import { Mail } from '../../../domain/entity/Mail';
+import { MailerRepository } from '../../../domain/repository/MailerRepository';
 
 @Injectable()
 export class NodeMailerRepository implements MailerRepository {

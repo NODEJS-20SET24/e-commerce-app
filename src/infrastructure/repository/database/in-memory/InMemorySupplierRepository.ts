@@ -1,6 +1,6 @@
-import { Injectable } from 'src/common/Injectable';
-import { Supplier } from 'src/domain/entity/Supplier';
-import { SupplierRepository } from 'src/domain/repository/SupplierRepository';
+import { Injectable } from '../../../../common/Injectable';
+import { Supplier } from '../../../../domain/entity/Supplier';
+import { SupplierRepository } from '../../../../domain/repository/SupplierRepository';
 
 @Injectable()
 export class InMemorySupplierRepository implements SupplierRepository {

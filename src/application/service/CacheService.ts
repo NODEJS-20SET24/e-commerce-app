@@ -1,6 +1,6 @@
-import { CustomException } from 'src/common/CustomException';
-import { Injectable } from 'src/common/Injectable';
-import { CacheRepository } from 'src/domain/repository/CacheRepository';
+import { CustomException } from '../../common/CustomException';
+import { Injectable } from '../../common/Injectable';
+import { CacheRepository } from '../../domain/repository/CacheRepository';
 
 @Injectable()
 export class CacheService {

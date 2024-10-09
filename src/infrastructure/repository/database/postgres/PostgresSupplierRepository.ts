@@ -1,9 +1,9 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable } from 'src/common/Injectable';
+import { Injectable } from '../../../../common/Injectable';
 import { Repository } from 'typeorm';
-import { SupplierRepository } from 'src/domain/repository/SupplierRepository';
+import { SupplierRepository } from '../../../../domain/repository/SupplierRepository';
 import { SupplierModel } from './model/SupplierModel';
-import { Supplier } from 'src/domain/entity/Supplier';
+import { Supplier } from '../../../../domain/entity/Supplier';
 
 @Injectable()
 export class PostgresSupplierRepository implements SupplierRepository {

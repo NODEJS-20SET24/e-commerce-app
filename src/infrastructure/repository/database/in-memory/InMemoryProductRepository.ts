@@ -1,6 +1,6 @@
-import { Injectable } from 'src/common/Injectable';
-import { Product } from 'src/domain/entity/Product';
-import { ProductRepository } from 'src/domain/repository/ProductRepository';
+import { Injectable } from '../../../../common/Injectable';
+import { Product } from '../../../../domain/entity/Product';
+import { ProductRepository } from '../../../../domain/repository/ProductRepository';
 
 @Injectable()
 export class InMemoryProductRepository implements ProductRepository {

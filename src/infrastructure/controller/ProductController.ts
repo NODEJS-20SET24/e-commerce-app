@@ -1,17 +1,9 @@
-import {
-  Body,
-  Controller,
-  Get,
-  NotFoundException,
-  Param,
-  Post,
-  UseFilters,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseFilters } from '@nestjs/common';
 import { CreateProductRequest } from './dto/CreateProductRequest';
-import { ProductService } from 'src/application/service/ProductService';
+import { ProductService } from '../../application/service/ProductService';
 import { FindProductByIdRequest } from './dto/FindProductByIdRequest';
-import { CustomException } from 'src/common/CustomException';
-import { CustomExceptionFilter } from 'src/common/CustomExceptionFilter';
+import { CustomException } from '../../common/CustomException';
+import { CustomExceptionFilter } from '../../common/CustomExceptionFilter';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('v1/products')

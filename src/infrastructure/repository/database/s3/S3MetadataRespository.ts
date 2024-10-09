@@ -1,6 +1,6 @@
 import { PutObjectCommand } from '@aws-sdk/client-s3';
-import { getS3Client } from 'src/common/aws/Clients';
-import { MetadataRepository } from 'src/domain/repository/MetadataRepository';
+import { getS3Client } from '../../../../common/aws/Clients';
+import { MetadataRepository } from '../../../../domain/repository/MetadataRepository';
 import fs from 'fs';
 
 export class S3MetadataRespository implements MetadataRepository {

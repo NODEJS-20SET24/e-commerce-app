@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
-import { Injectable } from 'src/common/Injectable';
-import { Product } from 'src/domain/entity/Product';
-import { ProductRepository } from 'src/domain/repository/ProductRepository';
-import { getDocumentClient } from 'src/common/aws/Clients';
+import { Injectable } from '../../../../common/Injectable';
+import { Product } from '../../../../domain/entity/Product';
+import { ProductRepository } from '../../../../domain/repository/ProductRepository';
+import { getDocumentClient } from '../../../../common/aws/Clients';
 
 @Injectable()
 export class DynamoProductRepository implements ProductRepository {

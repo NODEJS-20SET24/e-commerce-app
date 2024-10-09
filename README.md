@@ -53,3 +53,31 @@ sls remove --verbose
 
 1. Create the `product` table on DynamoDB and set ID as key partition
 2. Set/change access/secret keys on `DynamoProductRepository.ts`
+
+### Working with Redis
+
+- Install/run docker
+
+```bash
+docker pull redis:latest
+docker run --rm -p 6379:6379 --name myredis redis
+```
+
+- Verifify installation
+
+```bash
+docker exec -it myredis redis-cli
+keys *
+```
+
+## Unit test and coverage
+
+- Install/run docker
+
+```bash
+docker pull sonarqube:lts-community
+docker run --name mysonar -p 9000:9000 sonarqube:lts-community
+```
+
+- Go to http://localhost:9000 on the browser, loggin and configure the security
+- Donloadd sonnar-scanner, and send coverage
